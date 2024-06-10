@@ -1,41 +1,43 @@
 <script lang="ts">
 import SelecionarIgrediente from './SelecionarIngredientes.vue';
+import Tag from './Tag.vue';
 
 export default {
-    data(){
-        return {
-            ingredientes:  ['Alho','Manteiga','Orégano']
-        }
-    },
-    components: { SelecionarIgrediente }
+  data() {
+    return {
+      ingredientes: ['Alho', 'Manteiga', 'Orégano']
+    }
+  },
+  components: { SelecionarIgrediente, Tag }
 }
 </script>
 
 <!-- código omitido -->
 
 <template>
-    <main class="conteudo-principal">
-      <section>
-        <span class="subtitulo-lg sua-lista-texto">
-          Sua lista:
-        </span>
-  
-        <ul v-if="ingredientes.length" class="ingredientes-sua-lista">
-            <li v-for="ingrediente in ingredientes" :key="ingrediente" class="ingrediente"> <!-- diretiva v-for | diretiva v-bind:key para pegar atributos do js e usar no html-->
-                {{ ingrediente }}<!-- interpolação -->
-            </li> 
-        </ul>
-        <p v-else class="paragrafo lista-vazia">
-            <img src="../assets/images/icones/lista-vazia.svg" alt="Ícone de pesquisa">
-            Sua lista está vazia, selecione ingredientes para iniciar.
-        </p>
-      </section>
+  <main class="conteudo-principal">
+    <section>
+      <span class="subtitulo-lg sua-lista-texto">
+        Sua lista:
+      </span>
 
-      <SelecionarIgrediente/>
+      <ul v-if="ingredientes.length" class="ingredientes-sua-lista">
+        <li v-for="ingrediente in ingredientes" :key="ingrediente">
+          <!-- diretiva v-for | diretiva v-bind:key para pegar atributos do js e usar no html-->
+          <Tag :texto="ingrediente" />
+        </li>
+      </ul>
+      <p v-else class="paragrafo lista-vazia">
+        <img src="../assets/images/icones/lista-vazia.svg" alt="Ícone de pesquisa">
+        Sua lista está vazia, selecione ingredientes para iniciar.
+      </p>
+    </section>
 
-    </main>
+    <SelecionarIgrediente />
+
+  </main>
 </template>
-  
+
 
 <style scoped>
 .conteudo-principal {
@@ -62,18 +64,6 @@ export default {
   justify-content: center;
   gap: 1rem 1.5rem;
   flex-wrap: wrap;
-}
-
-.ingrediente {
-  display: inline-block;
-  border-radius: 0.5rem;
-  min-width: 4.25rem;
-  padding: 0.5rem;
-  text-align: center;
-  transition: 0.2s;
-  color: var(--creme, #FFFAF3);
-  background: var(--coral, #F0633C);
-  font-weight: 700;
 }
 
 .lista-vazia {
