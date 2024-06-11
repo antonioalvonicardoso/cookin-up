@@ -5,10 +5,15 @@ import SuaLista from './SuaLista.vue';
 export default {
   data() {
     return {
-      ingredientes: ['Alho', 'Manteiga', 'Orégano']
+      ingredientes: [] as string[]
     }
   },
-  components: { SelecionarIgrediente, SuaLista }
+  components: { SelecionarIgrediente, SuaLista },
+  methods:{
+    adicionarIngrediente(ingrediente: string){
+      this.ingredientes.push(ingrediente)
+    }
+  }
 }
 </script>
 
@@ -17,7 +22,7 @@ export default {
 <template>
   <main class="conteudo-principal">
     <SuaLista :ingredientes="ingredientes" />
-    <SelecionarIgrediente />
+    <SelecionarIgrediente @adicionar-ingrediente="adicionarIngrediente"/> <!--a funçõa assume o dado passado por parametro-->
   </main>
 </template>
 
