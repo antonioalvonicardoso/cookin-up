@@ -2,6 +2,7 @@
 import { obterCategorias } from '@/http/index'
 import type ICategoria from '@/interface/ICategoria';
 import CardCategoria from './CardCategoria.vue';
+import BotaoPrincipal from './BotaoPrincipal.vue';
 
 export default {
   data() {
@@ -12,8 +13,8 @@ export default {
   async created() {
     this.categorias = await obterCategorias();
   },
-  components: { CardCategoria },
-  emits: ['adicionarIngrediente'], //recebe quais eventos o componente pode emitir
+  components: { CardCategoria, BotaoPrincipal },
+  emits: ['adicionarIngrediente', 'removerIngrediente', 'buscarReceitas'], //recebe quais eventos o componente pode emitir
 }
 </script>
 
@@ -27,13 +28,18 @@ export default {
 
     <ul class="categorias">
       <li v-for="categoria in categorias" :key="categoria.nome">
-        <CardCategoria :categoria="categoria" @adicionar-ingrediente="$emit('adicionarIngrediente', $event)"/>
+        <CardCategoria :categoria="categoria" 
+          @adicionar-ingrediente="$emit('adicionarIngrediente', $event)"
+          @remover-ingrediente="$emit('removerIngrediente', $event)"/>
       </li>
     </ul>
 
     <p class="paragrafo dica">
       *Atenção: consideramos que você tem em casa sal, pimenta e água.
     </p>
+    
+    <BotaoPrincipal texto="Buscar receitas!" @click="$emit('buscarReceitas')"/> 
+    <!--fallthrough attributes é adiconar o atributos para dentro do componte que foi chamado, como por exemplo o click que se integrou ao conteudo do BotaoPrincipal-->
   </section>
 </template>
 

@@ -18,9 +18,12 @@ export default {
             if(this.selecionado){
                 this.$emit('adicionarIngrediente', this.ingrediente);
             }
+            else{
+                this.$emit('removerIngrediente', this.ingrediente);
+            }
         }
     },
-    emits: ['adicionarIngrediente'], //recebe quais eventos o componente pode emitir
+    emits: ['adicionarIngrediente', 'removerIngrediente'], //recebe quais eventos o componente pode emitir
 }
 </script>
 
